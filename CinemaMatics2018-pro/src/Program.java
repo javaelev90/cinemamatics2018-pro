@@ -20,7 +20,6 @@ public class Program {
 		
 		while(true) {
 			
-			
 			ui.show_menu();
 			Integer choice = UserInterface.inputInt();
 			
@@ -28,9 +27,17 @@ public class Program {
 			case 1:
 				System.out.println("Choice "+choice+" please");
 				break;
-				
+			case 2:
+				System.out.println("Choice "+choice+" please");
+				break;
+			case 3:
+				System.out.println("Choice "+choice+" please");
+				break;
+			case 4:
+				System.out.println("Choice "+choice+" please");
+				break;
 			default:
-				System.out.println("Hello world!");
+				System.out.println("Ogiltigt val");
 			}
 		}
 	}
