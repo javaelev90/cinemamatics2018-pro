@@ -7,9 +7,11 @@ public class UserInterface {
 	static BufferedReader con = new BufferedReader(new InputStreamReader(System.in));
 	
 	public void show_menu() {
-		System.out.println("-----------------------------------");
-		System.out.println("-Menu Here						  -");
-		System.out.println("-----------------------------------");
+		System.out.println("--------------------------------------");
+		System.out.println("- (1) Show Bookings (all studios)    -");
+		System.out.println("- (1) Show Bookings (Specific Studio)-");
+		System.out.println("- (1) Make Booking                   -");
+		System.out.println("--------------------------------------");
 	}
 	
 	// Get Int from console
