@@ -4,12 +4,27 @@ import java.time.temporal.ChronoUnit;
 // Describes a show in the theatre, Start, End and Movie
 
 public class Show implements Comparable <Show>{
+	private static int ID_COUNTER = 1;
 	private Integer id; 
 	private LocalDateTime start;
 	private LocalDateTime end;
 	private Movie movie;
-	private Seat[][] seat = new Seat[10][25];	// The seating arrangement
+	private Booking[][] bookings = new Booking[5][10];	// The seating arrangement
 
+	public Show() {
+		id = ID_COUNTER;
+		ID_COUNTER++;
+		
+	}
+	
+	public Show(LocalDateTime start, LocalDateTime end, Movie movie) {
+		this.start = start;
+		this.end = end;
+		this.movie = movie;
+		
+		id = ID_COUNTER;
+		ID_COUNTER++;
+	}
 	
 	//Make this object sortable in an arraylist
 	@Override
@@ -27,6 +42,10 @@ public class Show implements Comparable <Show>{
 		return this.getStart().until(this.getEnd(), ChronoUnit.MINUTES);
 	}
 	
+	public Booking[][] getBookings() {
+		return bookings;
+	}
+
 	public boolean checkOverlap(LocalDateTime chkTime) {
 		return start.isBefore(chkTime) && chkTime.isBefore(end);
 	}
@@ -73,19 +92,6 @@ public class Show implements Comparable <Show>{
 		this.movie = movie;
 	}
 	
-	/**
-	 * @return the seat
-	 */
-	public Seat[][] getSeat() {
-		return seat;
-	}
-	
-	/**
-	 * @param seat the seat to set
-	 */
-	public void setSeat(Seat[][] seat) {
-		this.seat = seat;
-	}
 
 	/**
 	 * 
@@ -103,6 +109,19 @@ public class Show implements Comparable <Show>{
 		this.id = id;
 	}
 	
+	 @Override
+	 public String toString() {
+		 return "ID:" + this.id  + " Namn:" + this.movie.getName() + " Start:" + this.start.toString() + " Slut:" + this.end.toString(); 
+	 }
 	
+	public void showAvailableSeats() {
+		for(int row = 0; row < bookings.length; row++) {
+			for(int col = 0; col < bookings[row].length; col++) {
+				
+				System.out.print((bookings[row][col]!=null)?"X":"O");
+			}
+			System.out.println("");
+		}
+	}
 
 }

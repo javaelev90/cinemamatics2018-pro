@@ -15,6 +15,7 @@ public class UserInterface {
 		System.out.println("- (2) Visa alla föreställningar för specifik salong -");
 		System.out.println("- (3) Skapa föreställning                           -");
 		System.out.println("- (4) Boka biljett                                  -");
+		System.out.println("- (5) Exit                                          -");
 		System.out.println("-----------------------------------------------------");
 	}
 	
@@ -31,7 +32,34 @@ public class UserInterface {
 		return myInt;
 	}
 	
+	public static String getUserInputString() {
+		String input = "";
+		
+		try {
+			input = con.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return input;
+	}
 	
+	public static String getTheatreName() {
+		System.out.println("Ange salongsnamn: ");
+		return getUserInputString();
+	}
+	
+	public static int getShowId() {
+		System.out.println("Ange föreställningsid: ");
+		return inputInt();
+	}
+	
+	public static int enterMovieId() {
+		System.out.println("Enter movie id");
+		return inputInt();
+	}
+	
+
 	// ----------------------------------------------------------------------------
 	// Create a new LDT object or reinstance a new time from an existing one
 	// Copying year/month/date to save input

@@ -24,6 +24,8 @@ public class DataManager {
 		return theatres.values().stream().collect(Collectors.toList());
 	}
 	
+	
+	
 	public boolean addTheatre(Theatre theatre) {
 		if(!theatres.containsKey(theatre.getName())) {
 			theatres.put(theatre.getName(), theatre);
@@ -33,7 +35,7 @@ public class DataManager {
 	}
 	
 	public boolean createShow(Show show, String theatreName) {
-		if(!theatres.containsKey(theatreName)) {
+		if(theatres.containsKey(theatreName)) {
 			Theatre theatre = theatres.get(theatreName);
 			theatre.addShow(show);
 			return true;
@@ -42,14 +44,13 @@ public class DataManager {
 	}
 	
 	
-	public boolean createBooking(Booking booking, Integer showId, String theatreName) {
+	public boolean saveBooking(Booking booking,Integer row, Integer col, Integer showId, String theatreName) {
 		if(theatres.containsKey(theatreName)) {
 			Theatre theatre = theatres.get(theatreName);
 			Show show = theatre.getShow(showId);
-			Seat[][] seats = show.getSeat();
-			Seat seat = seats[booking.getSeat().getRowId()][booking.getSeat().getColId()];
-			if(!seat.isOccupied()) {
-				seat.setBookingId(booking.getBookingId());
+			Booking[][] bkings = show.getBookings();
+			if(bkings[row][col] == null) {
+				bkings[row][col] = booking;
 				bookings.put(booking.getBookingId(), booking);
 				return true;
 			}
@@ -57,6 +58,16 @@ public class DataManager {
 		return false;
 	}
 	
+	public Theatre getTheatreForShow(Integer showId) {
+		for(Theatre theatre : getTheatres()) {
+			for(Show show : theatre.getAllShows()) {
+				if(show.getId() == showId) {
+					return theatre;
+				}
+			}
+		}
+		return null;
+	}
 	
 	public Booking getBooking(Integer bookingId) {
 		

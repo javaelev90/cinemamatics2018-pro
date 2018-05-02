@@ -52,6 +52,11 @@ public class Theatre {
 	 */
 	
 	public List<Show> getAllShowsInTheatre() {
-			return shows;
+		return shows;
+	}
+	
+	@Override
+	public String toString() {
+		return name;
 	}
 }

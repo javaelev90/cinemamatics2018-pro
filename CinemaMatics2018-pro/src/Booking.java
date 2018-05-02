@@ -1,10 +1,15 @@
 
 public class Booking {
+	
+	private static int BOOKING_COUNTER = 0;
 	private int bookingId;
 	private Customer myCust;
 	private Show myShow;
-	private Seat mySeat;
 	
+	public Booking() {
+		bookingId = BOOKING_COUNTER;
+		BOOKING_COUNTER++;
+	}
 		
 	public void setCustomer(Customer c) {
 		myCust = c;
@@ -20,16 +25,6 @@ public class Booking {
 		return myShow;
 	}
 	
-	public void setSeat(Seat s) {
-		mySeat = s;
-	}
-	public Seat getSeat() {
-		return mySeat;
-	}
-	
-	public void setBookingId(int id) {
-		bookingId = id;
-	}
 	public int getBookingId() {
 		return bookingId;
 	}

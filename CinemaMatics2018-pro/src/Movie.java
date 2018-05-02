@@ -5,6 +5,7 @@ public class Movie {
 	private String name;
 	private String description;
 	
+	
 	public Integer getId() {
 		return id;
 	}
@@ -24,5 +25,9 @@ public class Movie {
 		this.description = description;
 	}
 	
+	@Override
+	public String toString() {
+		return "Id: "+ id + " Name: " + name + " Description: " + description;
+	}
 	
 }
