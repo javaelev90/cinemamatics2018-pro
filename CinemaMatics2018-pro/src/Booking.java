@@ -5,7 +5,7 @@ public class Booking {
 	private Show myShow;
 	private Seat mySeat;
 	
-	
+		
 	public void setCustomer(Customer c) {
 		myCust = c;
 	}
