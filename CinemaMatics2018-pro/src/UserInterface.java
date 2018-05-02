@@ -8,16 +8,11 @@ public class UserInterface {
 	
 	public void show_menu() {
 		System.out.println("--------------------------------------");
-<<<<<<< HEAD
 		System.out.println("- (1) Visa alla föreställningar för alla salonger   -");
 		System.out.println("- (2) Visa alla föreställningar för specifik salong -");
 		System.out.println("- (3) Skapa föreställning                           -");
 		System.out.println("- (4) Boka biljett                           -");
-=======
-		System.out.println("- (1) Show Bookings (all studios)    -");
-		System.out.println("- (2) Show Bookings (Specific Studio)-");
-		System.out.println("- (3) Make Booking                   -");
->>>>>>> branch 'master' of https://github.com/tomsan1/cinemamatics2018-pro.git
+
 		System.out.println("--------------------------------------");
 	}
 	
