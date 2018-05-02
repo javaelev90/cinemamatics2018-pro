@@ -26,7 +26,10 @@ public class Show implements Comparable <Show>{
 		return this.getStart().until(this.getEnd(), ChronoUnit.MINUTES);
 	}
 	
-
+	public boolean checkOverlap(LocalDateTime chkTime) {
+		return start.isBefore(chkTime) && chkTime.isBefore(end);
+	}
+	
 	/**
 	 * @return the start
 	 */
