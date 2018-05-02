@@ -5,25 +5,22 @@ import java.util.List;
 
 public class Theatre {
 	private String name;						// The studio might have a name like "Blue Room"
-	private Show show;							// The show that is booked for the studio
-	
-	private List<Show> myShows;
+	private List<Show> shows;					// The show that is booked for the studio
+
 
 	// Constructor
 	public Theatre(String name) {
 		this.name = name;
-		myShows = new ArrayList<>();
+		shows = new ArrayList<>();
 	}
 
-	public List<Show> getMyShows() {
-		return myShows;
+	public List<Show> getAllShows() {
+		return shows;
 	}
 
-	public void setMyShows(List<Show> myShows) {
-		this.myShows = myShows;
-	}
+	
 	public void addShow(Show s) {
-		myShows.add(s);
+		shows.add(s);
 	}
 
 	/**
@@ -38,20 +35,23 @@ public class Theatre {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	/**
 	 * @return the show
 	 */
-	public Show getShow() {
-		return show;
+	public Show getShow(Integer id) {
+		for(Show show : shows) {
+			if(show.getId() == id) {
+				return show;
+			}
+		}
+		return null;
 	}
 	/**
 	 * @param show the show to set
 	 */
-	public void setShow(Show show) {
-		this.show = show;
-	}
 	
-	public void getAllShowsInTheatre(String tName) {
-		
+	public List<Show> getAllShowsInTheatre() {
+			return shows;
 	}
 }

@@ -4,6 +4,7 @@ import java.time.temporal.ChronoUnit;
 // Describes a show in the theatre, Start, End and Movie
 
 public class Show implements Comparable <Show>{
+	private Integer id; 
 	private LocalDateTime start;
 	private LocalDateTime end;
 	private Movie movie;
@@ -85,5 +86,23 @@ public class Show implements Comparable <Show>{
 	public void setSeat(Seat[][] seat) {
 		this.seat = seat;
 	}
+
+	/**
+	 * 
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
+	}
+
+	/**
+	 * 
+	 * @param show is
+	 */
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+	
 
 }
