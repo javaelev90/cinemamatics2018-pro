@@ -11,6 +11,16 @@ public class Program {
 		Theatre s3 = new Theatre("Salong3");
 		Theatre s4 = new Theatre("Salong4");
 		
+		Movie m1 = new Movie();
+		m1.setId(1);
+		m1.setName("Terminator");
+		m1.setDescription("I'll be back");
+		
+		Movie m2 = new Movie();
+		m1.setId(2);
+		m1.setName("Scarface");
+		m1.setDescription("Say hello to my....");
+		
 		
 		myCinema.addTheatre(s1);
 		myCinema.addTheatre(s2);
