@@ -1,13 +1,34 @@
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 // Describes a show in the theatre, Start, End and Movie
 
-public class Show {
+public class Show implements Comparable <Show>{
 	private LocalDateTime start;
 	private LocalDateTime end;
 	private Movie movie;
 	private Seat[][] seat = new Seat[10][25];	// The seating arrangement
 
+	
+	//Make this object sortable in an arraylist
+	@Override
+	public int compareTo(Show ob) {
+		if(this.start.isEqual(ob.getStart()))
+			return 0;
+		
+		if(this.start.isBefore(ob.getStart()))
+			return -1;
+
+		return 1;
+	}
+	
+	public long getDuration() {
+		return this.getStart().until(this.getEnd(), ChronoUnit.MINUTES);
+	}
+	
+	public boolean checkOverlap(LocalDateTime chkTime) {
+		return start.isBefore(chkTime) && chkTime.isBefore(end);
+	}
 	
 	/**
 	 * @return the start
