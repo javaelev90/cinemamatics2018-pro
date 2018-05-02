@@ -6,60 +6,61 @@ import java.util.stream.Collectors;
 
 public class DataManager {
 	
-	private Map<Integer, Show> shows;
+	private Map<String, Theatre> theatres;
+	private Map<Integer, Booking> bookings;
 	
 	public DataManager() {
-		shows = new HashMap<Integer, Show>();
+		theatres = new HashMap<String, Theatre>();
+		bookings = new HashMap<Integer, Booking>();
 	}
 	
-	/**
-	 * 
-	 * @param id for the show
-	 * @return the Show
-	 */
-	public Show getShow(Integer id) {
-		return shows.get(id);
+	
+	public Theatre getTheatre(String name) {
+		return theatres.get(name);
 	}
 	
-	/**
-	 * 
-	 * @return all shows
-	 */
-	public List<Show> getShows(){
-		return shows.values().stream().collect(Collectors.toList());
+	
+	public List<Theatre> getTheatres(){
+		return theatres.values().stream().collect(Collectors.toList());
 	}
 	
-	/**
-	 * 
-	 * @param show
-	 * @param id for the show
-	 * @return check if the show already exists
-	 */
-	public boolean createShow(Show show, Integer id) {
-		if(!shows.containsKey(id)) {
-			shows.put(id, show);
+	public boolean addTheatre(Theatre theatre) {
+		if(!theatres.containsKey(theatre.getName())) {
+			theatres.put(theatre.getName(), theatre);
 			return true;
 		}
 		return false;
 	}
 	
-	/**
-	 * 
-	 * @param booking
-	 * @param showId
-	 * @return if the booking could be made
-	 */
-	public boolean createBooking(Booking booking, Integer showId) {
+	public boolean createShow(Show show, String theatreName) {
+		if(!theatres.containsKey(theatreName)) {
+			Theatre theatre = theatres.get(theatreName);
+			theatre.addShow(show);
+			return true;
+		}
 		return false;
 	}
 	
-	/**
-	 * 
-	 * @param bookingId
-	 * @return if booking was found
-	 */
-	public boolean getBooking(Integer bookingId) {
+	
+	public boolean createBooking(Booking booking, Integer showId, String theatreName) {
+		if(theatres.containsKey(theatreName)) {
+			Theatre theatre = theatres.get(theatreName);
+			Show show = theatre.getShow(showId);
+			Seat[][] seats = show.getSeat();
+			Seat seat = seats[booking.getSeat().getRowId()][booking.getSeat().getColId()];
+			if(!seat.isOccupied()) {
+				seat.setBookingId(booking.getBookingId());
+				bookings.put(booking.getBookingId(), booking);
+				return true;
+			}
+		}
 		return false;
+	}
+	
+	
+	public Booking getBooking(Integer bookingId) {
+		
+		return bookings.get(bookingId);
 	}
 	
 }
