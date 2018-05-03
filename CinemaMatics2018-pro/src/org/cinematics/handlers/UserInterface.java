@@ -52,7 +52,6 @@ public class UserInterface {
 	
 	public static String getUserInputString() {
 		String input = "";
-		
 		try {
 			input = con.readLine();
 		} catch (IOException e) {

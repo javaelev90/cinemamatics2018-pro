@@ -38,7 +38,7 @@ public class Program {
 				
 				break;
 			case 5:
-				
+				addMovie(dataManager); 
 				break;
 			case 6:
 				makeBooking(dataManager, choice); 
@@ -51,7 +51,7 @@ public class Program {
 			}
 		}
 	}
-
+	
 	public static void setup(List<Movie> movies, DataManager dataManager) {
 		Movie m1 = new Movie();
 		m1.setId(1);
@@ -74,6 +74,23 @@ public class Program {
 		dataManager.createShow(show, "Salong1");
 	}
 
+	public static void addMovie(DataManager dataManager) {
+		Movie movie = new Movie();
+		System.out.println("Add movie title(leave blank to exit):");
+		String title = UserInterface.getUserInputString();
+		if(title.equals("")) {
+			return;
+		}
+		System.out.println("Add movie description(leave blank to exit):");
+		String description = UserInterface.getUserInputString();
+		if(description.equals("")) {
+			return;
+		}
+		movie.setDescription(description);
+		movie.setName(title);
+		dataManager.addMovie(movie);
+	}
+	
 	public static void makeBooking(DataManager dataManager, Integer choice) {
 		boolean doneWithBooking = false; 
 		while(!doneWithBooking) {
@@ -159,7 +176,7 @@ public class Program {
 			doneWithBooking = true;
 		}
 	}
-
+	
 	public static void createShow(List<Movie> movies, DataManager dataManager) {
 		Show show = new Show();
 		System.out.println("MOVIES: ");

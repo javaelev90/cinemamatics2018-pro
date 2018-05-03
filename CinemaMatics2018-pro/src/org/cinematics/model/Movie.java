@@ -2,10 +2,15 @@ package org.cinematics.model;
 
 public class Movie {
 
+	private static int MOVIE_ID = 0;
 	private Integer id;
 	private String name;
 	private String description;
 	
+	public Movie() {
+		id = MOVIE_ID;
+		MOVIE_ID++;
+	}
 	
 	public Integer getId() {
 		return id;

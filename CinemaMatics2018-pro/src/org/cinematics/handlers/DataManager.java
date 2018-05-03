@@ -1,11 +1,15 @@
 package org.cinematics.handlers;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import org.cinematics.model.Booking;
+import org.cinematics.model.Movie;
 import org.cinematics.model.Show;
 import org.cinematics.model.Theatre;
 
@@ -13,14 +17,24 @@ public class DataManager {
 	
 	private Map<String, Theatre> theatres;
 	private Map<Integer, Booking> bookings;
+	private Set<Movie> movies;
 	
 	public DataManager() {
 		theatres = new TreeMap<String, Theatre>();
 		bookings = new TreeMap<Integer, Booking>();
+		movies = new TreeSet<Movie>(Comparator.comparing(Movie::getName));
 	}
 	
 	public Theatre getTheatre(String name) {
 		return theatres.get(name);
+	}
+	
+	public Set<Movie> getAllMovies(){
+		return movies;
+	}
+	
+	public boolean addMovie(Movie movie) {
+		return movies.add(movie);
 	}
 	
 	public List<Theatre> getTheatres(){
