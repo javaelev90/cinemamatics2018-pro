@@ -51,8 +51,6 @@ public class Program {
 			
 			switch(choice) {
 			case 1:
-				System.out.println("Choice "+choice+" please");
-				
 				for (Theatre cT : dataManager.getTheatres()) {
 					for(Show show : cT.getAllShows()) {
 						System.out.println(show.toString());
@@ -61,9 +59,14 @@ public class Program {
 				
 				break;
 			case 2:
-				System.out.println("Choice "+choice+" please");
 				String theatreName = UserInterface.getTheatreName();
 				Theatre cT = dataManager.getTheatre(theatreName);
+				
+				if(cT == null) {
+					System.out.println("That theatre does not exist.");
+					break;
+				}
+
 				for(Show show : cT.getAllShows()) {
 					System.out.println(show.toString());
 				}
@@ -71,7 +74,6 @@ public class Program {
 				break;
 			case 3:
 				Show show = new Show();
-				System.out.println("Choice "+choice+" please");
 				System.out.println("MOVIES: ");
 				for(Movie movie : movies) {
 					System.out.println(movie.toString());
@@ -87,26 +89,39 @@ public class Program {
 				System.out.println("Theatres: ");
 				
 				List<Theatre> theatres = dataManager.getTheatres();
-				
-//				Collections.sort(theatres, new Comparator<Theatre>() {
-//					@Override
-//					public int compare(Theatre t1, Theatre t2) {
-//						return t1.getName().compareTo(t2.getName());
-//				}});
-				
 				theatres.sort(Comparator.comparing(Theatre::getName));
 				
 				for (Theatre cT2 : theatres) {
 					System.out.println(cT2.getName());
 				}
 				String chosenTheatre = UserInterface.getTheatreName();
-				if(dataManager.getTheatre(chosenTheatre) == null) {
+				Theatre theatre1 = dataManager.getTheatre(chosenTheatre);
+				if(theatre1 == null) {
 					System.out.println("That theatre does not exist.");
 					break;
 				}
-				// KOLLA DUBBELBOKNINGAR
+				System.out.println("Leave blank to exit");
 				LocalDateTime startTime = UserInterface.readDate(null);
+				if(startTime.equals(LocalDateTime.MIN) ) {
+					break;
+				}
 				LocalDateTime endTime = UserInterface.readDate(startTime);
+				if(endTime.equals(LocalDateTime.MIN)) {
+					break;
+				}
+				List<Show> shows = theatre1.getAllShows();
+				List<Show> overlappingShows = new ArrayList<Show>();
+				for(Show currentShow : shows) {
+					if(currentShow.checkOverlap(startTime) || currentShow.checkOverlap(endTime)) {
+						overlappingShows.add(currentShow);
+					}
+				}
+				if(!overlappingShows.isEmpty()) {
+					System.out.println("Show is overlapping with :");
+					overlappingShows.forEach(System.out::println);
+					break;
+				}
+	
 				show.setStart(startTime);
 				show.setEnd(endTime);
 				dataManager.createShow(show, chosenTheatre);
