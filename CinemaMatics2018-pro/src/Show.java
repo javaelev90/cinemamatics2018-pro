@@ -118,7 +118,7 @@ public class Show implements Comparable <Show>{
 		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MMM-dd HH:mm");
 		 String startTime = formatter.format(start);
 		 String endTime = formatter.format(end);
-		 return "ID:" + this.id  + " Namn:" + this.movie.getName() + " Start:" + startTime + " Slut:" + endTime; 
+		 return "ShowId:" + this.id  + " Namn:" + this.movie.getName() + " Start:" + startTime + " Slut:" + endTime; 
 	 }
 	
 	public void showAllSeats() {

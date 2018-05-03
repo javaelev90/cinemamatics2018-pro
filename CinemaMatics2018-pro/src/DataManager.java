@@ -1,7 +1,7 @@
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class DataManager {
@@ -10,8 +10,8 @@ public class DataManager {
 	private Map<Integer, Booking> bookings;
 	
 	public DataManager() {
-		theatres = new HashMap<String, Theatre>();
-		bookings = new HashMap<Integer, Booking>();
+		theatres = new TreeMap<String, Theatre>();
+		bookings = new TreeMap<Integer, Booking>();
 	}
 	
 	
