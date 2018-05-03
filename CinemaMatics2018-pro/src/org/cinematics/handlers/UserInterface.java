@@ -15,21 +15,38 @@ public class UserInterface {
 		System.out.println("- (1) Visa alla föreställningar för alla salonger   -");
 		System.out.println("- (2) Visa alla föreställningar för specifik salong -");
 		System.out.println("- (3) Skapa föreställning                           -");
-		System.out.println("- (4) Boka biljett                                  -");
-		System.out.println("- (5) Exit                                          -");
+		System.out.println("- (4) Skapa salong                                  -");
+		System.out.println("- (5) Skapa film                                    -");
+		System.out.println("- (6) Boka biljett                                  -");
+		System.out.println("- (7) Exit                                          -");
 		System.out.println("-----------------------------------------------------");
+	}
+	
+	public static int inputIntWithBreak() {
+		int myInt = 0;
+		try {
+			String input = con.readLine();
+			if(input.equals("")) {
+				return -1;
+			}
+			myInt = Integer.parseInt(input);
+		} catch (NumberFormatException | IOException e) {
+			System.out.println("Bad input");
+			myInt = inputInt();
+		}
+		return myInt;
 	}
 	
 	// Get Int from console
 	public static int inputInt() {
 		int myInt = 0;
 		try {
-			myInt = Integer.parseInt(con.readLine());
+			String input = con.readLine();
+			myInt = Integer.parseInt(input);
 		} catch (NumberFormatException | IOException e) {
 			System.out.println("Bad input");
 			myInt = inputInt();
 		}
-
 		return myInt;
 	}
 	
@@ -124,13 +141,13 @@ public class UserInterface {
 	} // end ReadDate
 
 	public static int chooseSeatCol() {
-		System.out.println("Choose seat column");
-		return inputInt();
+		System.out.println("Choose seat column(leave blank to exit)");
+		return inputIntWithBreak();
 	}
 
 	public static int chooseSeatRow() {
-		System.out.println("Choose seat row");
-		return inputInt();
+		System.out.println("Choose seat row(leave blank to exit)");
+		return inputIntWithBreak();
 	}
 	
 	public static int chooseNumberOfSeats() {

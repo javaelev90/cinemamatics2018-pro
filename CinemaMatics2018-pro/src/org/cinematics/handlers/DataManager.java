@@ -49,14 +49,9 @@ public class DataManager {
 		if(theatres.containsKey(theatreName)) {
 			Theatre theatre = theatres.get(theatreName);
 			Show show = theatre.getShow(showId);
-//			Booking[][] bkings = show.getBookings();
 			show.getBookings()[row][col] = booking;
 			bookings.put(booking.getBookingId(), booking);
 			return true;
-//			if(bkings[row][col] == null) {
-//				bkings[row][col] = booking;
-//				
-//			}
 		}
 		return false;
 	}

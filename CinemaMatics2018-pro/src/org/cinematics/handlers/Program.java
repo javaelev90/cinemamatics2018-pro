@@ -35,9 +35,15 @@ public class Program {
 				createShow(movies, dataManager);
 				break;
 			case 4:
-				makeBooking(dataManager, choice); 
+				
 				break;
 			case 5:
+				
+				break;
+			case 6:
+				makeBooking(dataManager, choice); 
+				break;
+			case 7:
 				done = true;
 				break;
 			default:
@@ -94,7 +100,9 @@ public class Program {
 			if(UserInterface.seatsTogether()) {
 				System.out.println("Choose starting seat:");
 				int startingRow = UserInterface.chooseSeatRow();
+				if(startingRow == -1) return;
 				int startingCol = UserInterface.chooseSeatCol();
+				if(startingCol == -1) return;
 				Seat[] seats = show.getSeats(startingRow, startingCol, numberOfSeats);
 				try {
 					if(show.areSeatsAvailable(seats)) {
@@ -103,6 +111,8 @@ public class Program {
 						for(Seat currentSeat : seats) {
 							dataManager.saveBooking(booking, currentSeat.row, currentSeat.col, show.getId(), theatre.getName());
 						}
+						show.showTickets(booking);
+						break;
 					} else {
 						System.out.println("Those seats are not available");
 						continue;
@@ -116,10 +126,17 @@ public class Program {
 				List<Seat> seats = new ArrayList<Seat>();
 				while(!(seats.size() == numberOfSeats)) {
 					int startingRow = UserInterface.chooseSeatRow();
+					if(startingRow == -1) return;
 					int startingCol = UserInterface.chooseSeatCol();
+					if(startingCol == -1) return;
 					try {
+						Seat seat = new Seat(startingRow, startingCol);
+						if(seats.contains(seat)) {
+							System.out.println("You have already selected that seat");
+							continue;
+						}
 						if(show.isSeatAvailable(startingRow, startingCol)) {
-							seats.add(new Seat(startingRow, startingCol));
+							seats.add(seat);
 						} else {
 							System.out.println("That seat is not available");
 							continue;
@@ -136,7 +153,8 @@ public class Program {
 					dataManager.saveBooking(booking, currentSeat.row, currentSeat.col, show.getId(), theatre.getName());
 				}
 				System.out.println("Booking succeeded");
-				show.showAllSeats();
+//				show.showAllSeats();
+				show.showTickets(booking);
 			}
 			doneWithBooking = true;
 		}

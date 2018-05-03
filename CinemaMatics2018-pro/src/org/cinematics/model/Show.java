@@ -2,6 +2,8 @@ package org.cinematics.model;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.cinematics.exceptions.OutOfSeatingBoundsException;
 
@@ -147,6 +149,30 @@ public class Show implements Comparable <Show>{
 		System.out.println("");
 	}
 
+	public void showTickets(Booking booking) {
+		List<Seat> bookedSeats = new ArrayList<Seat>();
+		for(int row = 0; row < bookings.length; row++) {
+			for(int col = 0; col < bookings[row].length; col++) {
+				Booking seatInTheatre = bookings[row][col];
+				if(seatInTheatre == null) {
+					continue;
+				}
+				if(booking.getBookingId() == seatInTheatre.getBookingId()) {
+					bookedSeats.add(new Seat(row,col));	
+				}
+			}
+		}
+		System.out.println("----Ticket----");
+		System.out.println("Booking id: "+booking.getBookingId());
+		System.out.println(booking.getShow().toString());
+		System.out.print("Seats: ");
+		bookedSeats.forEach(seat -> {
+			System.out.print("("+seat.row+","+seat.col+")"+ " ");
+		});
+		System.out.println("");
+		System.out.println("--------------");
+	}
+	
 	public Seat[] getSeats(int startingRow, int startingCol, int numberOfSeats) {
 		Seat[] seats = new Seat[numberOfSeats];
 		for(int i = 0; i < numberOfSeats; i++) {
