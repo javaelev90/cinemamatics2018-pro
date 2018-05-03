@@ -1,5 +1,7 @@
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import Exceptions.OutOfSeatingBoundsException;
@@ -82,14 +84,27 @@ public class Program {
 						break;
 					}
 				}
-				for (Theatre cT2 : dataManager.getTheatres()) {
-					
+				System.out.println("Theatres: ");
+				List<Theatre> theatres = dataManager.getTheatres();
+				Collections.sort(theatres, new Comparator<Theatre>() {
+					@Override
+					public int compare(Theatre t1, Theatre t2) {
+						return t1.getName().compareTo(t2.getName());
+				}});
+				for (Theatre cT2 : theatres) {
+					System.out.println(cT2.getName());
 				}
+				String chosenTheatre = UserInterface.getTheatreName();
+				if(dataManager.getTheatre(chosenTheatre) == null) {
+					System.out.println("That theatre does not exist.");
+					break;
+				}
+				// KOLLA DUBBELBOKNINGAR
 				LocalDateTime startTime = UserInterface.readDate(null);
 				LocalDateTime endTime = UserInterface.readDate(startTime);
 				show.setStart(startTime);
 				show.setEnd(endTime);
-				dataManager.createShow(show, "Salong1");
+				dataManager.createShow(show, chosenTheatre);
 				break;
 			case 4:
 				boolean doneWithBooking = false; 
