@@ -85,12 +85,17 @@ public class Program {
 					}
 				}
 				System.out.println("Theatres: ");
+				
 				List<Theatre> theatres = dataManager.getTheatres();
-				Collections.sort(theatres, new Comparator<Theatre>() {
-					@Override
-					public int compare(Theatre t1, Theatre t2) {
-						return t1.getName().compareTo(t2.getName());
-				}});
+				
+//				Collections.sort(theatres, new Comparator<Theatre>() {
+//					@Override
+//					public int compare(Theatre t1, Theatre t2) {
+//						return t1.getName().compareTo(t2.getName());
+//				}});
+				
+				theatres.sort(Comparator.comparing(Theatre::getName));
+				
 				for (Theatre cT2 : theatres) {
 					System.out.println(cT2.getName());
 				}
