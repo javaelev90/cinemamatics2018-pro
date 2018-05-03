@@ -122,6 +122,11 @@ public class UserInterface {
 		return dt;
 	} // end ReadDate
 
+	public static int chooseSeatCol() {
+		System.out.println("Choose seat column");
+		return inputInt();
+	}
+
 	public static int chooseSeatRow() {
 		System.out.println("Choose seat row");
 		return inputInt();
@@ -145,10 +150,7 @@ public class UserInterface {
 		}
 	}
 
-	public static int chooseSeatCol() {
-		System.out.println("Choose seat column");
-		return inputInt();
-	}
+	
 	
 	
 

@@ -129,6 +129,8 @@ public class Program {
 				for(Seat currentSeat : seats) {
 					dataManager.saveBooking(booking, currentSeat.row, currentSeat.col, show.getId(), theatre.getName());
 				}
+				System.out.println("Booking succeeded");
+				show.showAllSeats();
 			}
 			doneWithBooking = true;
 		}
@@ -196,10 +198,14 @@ public class Program {
 			System.out.println("That theatre does not exist.");
 			return;
 		}
-
+		if(cT.getAllShows().isEmpty()) {
+			System.out.println("There are no shows");
+			return;
+		}
 		for(Show show : cT.getAllShows()) {
 			System.out.println(show.toString());
 		}
+		
 	}
 
 	public static void viewAllShows(DataManager dataManager) {

@@ -14,17 +14,13 @@ public class DataManager {
 		bookings = new TreeMap<Integer, Booking>();
 	}
 	
-	
 	public Theatre getTheatre(String name) {
 		return theatres.get(name);
 	}
 	
-	
 	public List<Theatre> getTheatres(){
 		return theatres.values().stream().collect(Collectors.toList());
 	}
-	
-	
 	
 	public boolean addTheatre(Theatre theatre) {
 		if(!theatres.containsKey(theatre.getName())) {
@@ -48,12 +44,14 @@ public class DataManager {
 		if(theatres.containsKey(theatreName)) {
 			Theatre theatre = theatres.get(theatreName);
 			Show show = theatre.getShow(showId);
-			Booking[][] bkings = show.getBookings();
-			if(bkings[row][col] == null) {
-				bkings[row][col] = booking;
-				bookings.put(booking.getBookingId(), booking);
-				return true;
-			}
+//			Booking[][] bkings = show.getBookings();
+			show.getBookings()[row][col] = booking;
+			bookings.put(booking.getBookingId(), booking);
+			return true;
+//			if(bkings[row][col] == null) {
+//				bkings[row][col] = booking;
+//				
+//			}
 		}
 		return false;
 	}
