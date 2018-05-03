@@ -5,7 +5,6 @@ import java.util.List;
 public class Program {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		boolean done = true;
 		List<Movie> movies = new ArrayList<Movie>();
 		DataManager dataManager = new DataManager();
