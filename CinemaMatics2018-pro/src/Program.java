@@ -2,10 +2,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import Exceptions.OutOfSeatingBoundsException;
+
 public class Program {
 
 	public static void main(String[] args) {
-		boolean done = true;
+		boolean done = false;
 		List<Movie> movies = new ArrayList<Movie>();
 		DataManager dataManager = new DataManager();
 		UserInterface ui = new UserInterface();
@@ -90,21 +92,82 @@ public class Program {
 				dataManager.createShow(show, "Salong1");
 				break;
 			case 4:
-				System.out.println("Choice "+choice+" please");
-				for (Theatre cT3 : dataManager.getTheatres()) {
-					
-					for(Show show3 : cT3.getAllShows()) {
-						System.out.println(show3.toString());
-						show3.showAvailableSeats();
+				boolean doneWithBooking = false; 
+				while(!doneWithBooking) {
+					//Choose show
+					System.out.println("Choice "+choice+" please");
+					for (Theatre cT3 : dataManager.getTheatres()) {
+						
+						for(Show show3 : cT3.getAllShows()) {
+							System.out.println(show3.toString());
+							show3.showAllSeats();
+						}
 					}
-				}
-				int showId = UserInterface.getShowId();
+					int showId = UserInterface.getShowId();
+					
+					Theatre theatre = dataManager.getTheatreForShow(showId);
+					if(theatre == null) {
+						System.out.println("No such show id");
+						break;
+					}
+					Show show2 = theatre.getShow(showId);
+
+					int numberOfSeats = UserInterface.chooseNumberOfSeats();
+			
+					if(UserInterface.seatsTogether()) {
+						System.out.println("Choose starting seat:");
+						int startingRow = UserInterface.chooseSeatRow();
+						int startingCol = UserInterface.chooseSeatCol();
+						Seat[] seats = show2.getSeats(startingRow, startingCol, numberOfSeats);
+						try {
+							if(show2.areSeatsAvailable(seats)) {
+								Booking booking = new Booking();
+								booking.setShow(show2);
+								for(Seat currentSeat : seats) {
+									dataManager.saveBooking(booking, currentSeat.row, currentSeat.col, show2.getId(), theatre.getName());
+								}
+							} else {
+								System.out.println("Those seats are not available");
+								continue;
+							}
+						} catch (OutOfSeatingBoundsException e) {
+							System.out.println("You can't sit on the floor, duuh.");
+							continue;
+						}
+						
+					} else {
+						List<Seat> seats = new ArrayList<Seat>();
+						while(!(seats.size() == numberOfSeats)) {
+							int startingRow = UserInterface.chooseSeatRow();
+							int startingCol = UserInterface.chooseSeatCol();
+							try {
+								if(show2.isSeatAvailable(startingRow, startingCol)) {
+									seats.add(new Seat(startingRow, startingCol));
+								} else {
+									System.out.println("That seat is not available");
+									continue;
+								}
+							} catch (OutOfSeatingBoundsException e) {
+								System.out.println("You can't sit on the floor, duuh.");
+								continue;
+		
+							}
+						}
+						Booking booking = new Booking();
+						booking.setShow(show2);
+						for(Seat currentSeat : seats) {
+							dataManager.saveBooking(booking, currentSeat.row, currentSeat.col, show2.getId(), theatre.getName());
+						}
+					}
+					doneWithBooking = true;
+				} 
 				
-				Theatre theatre = dataManager.getTheatreForShow(showId);
-				Show show2 = theatre.getShow(showId);
-				Booking booking = new Booking();
-				booking.setShow(show2);
-				System.out.println(dataManager.saveBooking(booking, 2, 2, showId, theatre.getName()));
+					// Check if seating available
+					
+					// Create booking
+//					System.out.println(dataManager.saveBooking(booking, 2, 2, showId, theatre.getName()));
+				
+				
 				break;
 			case 5:
 				done = true;

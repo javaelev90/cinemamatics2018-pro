@@ -4,6 +4,8 @@ import java.util.List;
 // Describes the Theatre studio where the movie is shown
 
 public class Theatre {
+	public static int SEAT_ROWS = 5;
+	public static int SEAT_COLS = 10;
 	private String name;						// The studio might have a name like "Blue Room"
 	private List<Show> shows;					// The show that is booked for the studio
 

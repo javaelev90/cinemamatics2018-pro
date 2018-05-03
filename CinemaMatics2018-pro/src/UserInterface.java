@@ -122,4 +122,34 @@ public class UserInterface {
 		return dt;
 	} // end ReadDate
 
+	public static int chooseSeatRow() {
+		System.out.println("Choose seat row");
+		return inputInt();
+	}
+	
+	public static int chooseNumberOfSeats() {
+		System.out.println("Choose number of seats");
+		return inputInt();
+	}
+
+	public static boolean seatsTogether() {
+		System.out.println("Seats together? (y/n)");
+		String answer = getUserInputString();
+		if(answer.equals("y")) {
+			return true;
+		} else if(answer.equals("n")) {
+			return false;
+		} else {
+			System.out.println("You have to choose y or n!");
+			return seatsTogether();
+		}
+	}
+
+	public static int chooseSeatCol() {
+		System.out.println("Choose seat column");
+		return inputInt();
+	}
+	
+	
+
 }
