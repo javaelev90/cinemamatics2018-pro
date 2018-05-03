@@ -1,3 +1,4 @@
+package org.cinematics.model;
 
 public class Customer {
 	private int custId;

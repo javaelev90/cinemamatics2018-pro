@@ -1,4 +1,4 @@
-package Exceptions;
+package org.cinematics.exceptions;
 
 public class OutOfSeatingBoundsException extends Exception {
 

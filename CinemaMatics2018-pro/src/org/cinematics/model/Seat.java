@@ -1,3 +1,4 @@
+package org.cinematics.model;
 
 public class Seat {
 	public int row;

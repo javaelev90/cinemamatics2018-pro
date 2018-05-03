@@ -1,8 +1,9 @@
+package org.cinematics.model;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
-import Exceptions.OutOfSeatingBoundsException;
+import org.cinematics.exceptions.OutOfSeatingBoundsException;
 
 // Describes a show in the theatre, Start, End and Movie
 

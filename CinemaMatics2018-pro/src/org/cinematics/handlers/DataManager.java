@@ -1,8 +1,13 @@
+package org.cinematics.handlers;
 
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
+
+import org.cinematics.model.Booking;
+import org.cinematics.model.Show;
+import org.cinematics.model.Theatre;
 
 public class DataManager {
 	

@@ -1,8 +1,14 @@
+package org.cinematics.handlers;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import Exceptions.OutOfSeatingBoundsException;
+import org.cinematics.exceptions.OutOfSeatingBoundsException;
+import org.cinematics.model.Booking;
+import org.cinematics.model.Movie;
+import org.cinematics.model.Seat;
+import org.cinematics.model.Show;
+import org.cinematics.model.Theatre;
 
 public class Program {
 

@@ -1,3 +1,4 @@
+package org.cinematics.model;
 import java.util.ArrayList;
 import java.util.List;
 
