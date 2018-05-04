@@ -224,12 +224,13 @@ public class Program {
 			return;
 		}
 		System.out.println("Leave blank to exit");
+		
 		LocalDateTime startTime = UserInterface.readDate(null);
-		if(startTime.equals(LocalDateTime.MIN) ) {
+		if(startTime == null || startTime.equals(LocalDateTime.MIN) ) {
 			return;
 		}
 		LocalDateTime endTime = UserInterface.readDate(startTime);
-		if(endTime.equals(LocalDateTime.MIN)) {
+		if(endTime == null || endTime.equals(LocalDateTime.MIN)) {
 			return;
 		}
 		List<Show> shows = theatre.getAllShows();
