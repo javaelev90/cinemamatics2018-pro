@@ -12,12 +12,12 @@ public class UserInterface {
 	
 	public void show_menu() {
 		System.out.println("-----------------------------------------------------");
-		System.out.println("- (1) Visa alla föreställningar för alla salonger   -");
-		System.out.println("- (2) Visa alla föreställningar för specifik salong -");
-		System.out.println("- (3) Skapa föreställning                           -");
-		System.out.println("- (4) Skapa salong                                  -");
-		System.out.println("- (5) Skapa film                                    -");
-		System.out.println("- (6) Boka biljett                                  -");
+		System.out.println("- (1) View all shows in all theatres                -");
+		System.out.println("- (2) View all shows for a specific theatre         -");
+		System.out.println("- (3) Create show                                   -");
+		System.out.println("- (4) Create theatre                                -");
+		System.out.println("- (5) Create movie                                  -");
+		System.out.println("- (6) Book tickets                                  -");
 		System.out.println("- (7) Exit                                          -");
 		System.out.println("-----------------------------------------------------");
 	}
@@ -62,18 +62,18 @@ public class UserInterface {
 	}
 	
 	public static String getTheatreName() {
-		System.out.println("Ange salongsnamn: ");
+		System.out.println("Input theatre name: ");
 		return getUserInputString();
 	}
 	
 	public static int getShowId() {
-		System.out.println("Ange föreställningsid: ");
-		return inputInt();
+		System.out.println("Input show id(Leave blank for exit): ");
+		return inputIntWithBreak();
 	}
 	
 	public static int enterMovieId() {
-		System.out.println("Enter movie id");
-		return inputInt();
+		System.out.println("Enter movie id(Leave blank for exit):");
+		return inputIntWithBreak();
 	}
 	
 
@@ -150,8 +150,8 @@ public class UserInterface {
 	}
 	
 	public static int chooseNumberOfSeats() {
-		System.out.println("Choose number of seats");
-		return inputInt();
+		System.out.println("Choose number of seats(leave blank to exit)");
+		return inputIntWithBreak();
 	}
 
 	public static boolean seatsTogether() {

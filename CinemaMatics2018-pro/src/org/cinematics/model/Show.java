@@ -167,7 +167,7 @@ public class Show implements Comparable <Show>{
 		System.out.println(booking.getShow().toString());
 		System.out.print("Seats: ");
 		bookedSeats.forEach(seat -> {
-			System.out.print("("+seat.row+","+seat.col+")"+ " ");
+			System.out.print("(row: "+seat.row+", column: "+seat.col+")"+ " ");
 		});
 		System.out.println("");
 		System.out.println("--------------");

@@ -2,6 +2,7 @@ package org.cinematics.handlers;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.cinematics.exceptions.OutOfSeatingBoundsException;
 import org.cinematics.model.Booking;
@@ -14,10 +15,9 @@ public class Program {
 
 	public static void main(String[] args) {
 		boolean done = false;
-		List<Movie> movies = new ArrayList<Movie>();
 		DataManager dataManager = new DataManager();
 		UserInterface ui = new UserInterface();
-		setup(movies, dataManager);
+		setup(dataManager);
 		
 		while(!done) {
 			
@@ -32,10 +32,10 @@ public class Program {
 				viewAllShowInTheatre(dataManager);
 				break;
 			case 3:
-				createShow(movies, dataManager);
+				createShow(dataManager);
 				break;
 			case 4:
-				
+				addTheatre(dataManager);
 				break;
 			case 5:
 				addMovie(dataManager); 
@@ -47,24 +47,22 @@ public class Program {
 				done = true;
 				break;
 			default:
-				System.out.println("Ogiltigt val");
+				System.out.println("That is not a valid menu option");
 			}
 		}
 	}
 	
-	public static void setup(List<Movie> movies, DataManager dataManager) {
+	public static void setup(DataManager dataManager) {
 		Movie m1 = new Movie();
-		m1.setId(1);
 		m1.setName("Terminator");
 		m1.setDescription("I'll be back");
 		
 		Movie m2 = new Movie();
-		m2.setId(2);
 		m2.setName("Scarface");
 		m2.setDescription("Say hello to my....");
-		movies.add(m1);
-		movies.add(m2);
 		
+		dataManager.addMovie(m1);
+		dataManager.addMovie(m2);
 		dataManager.addTheatre(new Theatre("Salong1"));
 		dataManager.addTheatre(new Theatre("Salong2"));
 		dataManager.addTheatre(new Theatre("Salong3"));
@@ -91,6 +89,22 @@ public class Program {
 		dataManager.addMovie(movie);
 	}
 	
+	public static void addTheatre(DataManager dataManager) {
+		
+		System.out.println("Add theatre name(leave blank to exit):");
+		String name = UserInterface.getUserInputString();
+		if(name.equals("")) {
+			return;
+		}
+		if(dataManager.addTheatre(new Theatre(name))){
+			System.out.println("The new theatre was added successfully");
+			return;
+		} else {
+			System.out.println("That theatre name was already in use.");
+			return;
+		}
+	}
+	
 	public static void makeBooking(DataManager dataManager, Integer choice) {
 		boolean doneWithBooking = false; 
 		while(!doneWithBooking) {
@@ -104,7 +118,7 @@ public class Program {
 				}
 			}
 			int showId = UserInterface.getShowId();
-			
+			if(showId == -1) return;
 			Theatre theatre = dataManager.getTheatreForShow(showId);
 			if(theatre == null) {
 				System.out.println("No such show id");
@@ -113,7 +127,9 @@ public class Program {
 			Show show = theatre.getShow(showId);
 
 			int numberOfSeats = UserInterface.chooseNumberOfSeats();
-
+			if(numberOfSeats == -1) return;
+			
+			//Booking seats together
 			if(UserInterface.seatsTogether()) {
 				System.out.println("Choose starting seat:");
 				int startingRow = UserInterface.chooseSeatRow();
@@ -128,6 +144,7 @@ public class Program {
 						for(Seat currentSeat : seats) {
 							dataManager.saveBooking(booking, currentSeat.row, currentSeat.col, show.getId(), theatre.getName());
 						}
+						show.showAllSeats();
 						show.showTickets(booking);
 						break;
 					} else {
@@ -138,7 +155,7 @@ public class Program {
 					System.out.println("You can't sit on the floor, duuh.");
 					continue;
 				}
-				
+			//Booking seats separate	
 			} else {
 				List<Seat> seats = new ArrayList<Seat>();
 				while(!(seats.size() == numberOfSeats)) {
@@ -170,20 +187,22 @@ public class Program {
 					dataManager.saveBooking(booking, currentSeat.row, currentSeat.col, show.getId(), theatre.getName());
 				}
 				System.out.println("Booking succeeded");
-//				show.showAllSeats();
+				show.showAllSeats();
 				show.showTickets(booking);
 			}
 			doneWithBooking = true;
 		}
 	}
 	
-	public static void createShow(List<Movie> movies, DataManager dataManager) {
+	public static void createShow(DataManager dataManager) {
 		Show show = new Show();
 		System.out.println("MOVIES: ");
+		Set<Movie> movies = dataManager.getAllMovies();
 		for(Movie movie : movies) {
 			System.out.println(movie.toString());
 		}
 		int movieId = UserInterface.enterMovieId();
+		if(movieId == -1) return;
 		for(Movie movie : movies) {
 			if(movie.getId() == movieId) {
 				Movie showMovie = movie;
