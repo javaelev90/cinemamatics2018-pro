@@ -53,8 +53,8 @@ public class Show implements Comparable <Show>{
 		return bookings;
 	}
 
-	public boolean checkOverlap(LocalDateTime chkTime) {
-		return start.isBefore(chkTime) && chkTime.isBefore(end);
+	public boolean checkOverlap(LocalDateTime startTime, LocalDateTime endTime) {
+		return (start.isBefore(endTime) && startTime.isBefore(end));
 	}
 	
 	/**

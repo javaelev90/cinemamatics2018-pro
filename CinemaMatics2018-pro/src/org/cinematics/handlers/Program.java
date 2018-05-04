@@ -254,7 +254,7 @@ public class Program {
 		List<Show> shows = theatre.getAllShows();
 		List<Show> overlappingShows = new ArrayList<Show>();
 		for(Show currentShow : shows) {
-			if(currentShow.checkOverlap(startTime) || currentShow.checkOverlap(endTime)) {
+			if(currentShow.checkOverlap(startTime, endTime)) {
 				overlappingShows.add(currentShow);
 			}
 		}
