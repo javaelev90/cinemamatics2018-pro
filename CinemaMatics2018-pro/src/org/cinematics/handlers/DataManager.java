@@ -12,7 +12,11 @@ import org.cinematics.model.Booking;
 import org.cinematics.model.Movie;
 import org.cinematics.model.Show;
 import org.cinematics.model.Theatre;
-
+/**
+ * This class should be used to store all data that the cinema program needs
+ * 
+ *
+ */
 public class DataManager {
 	
 	private Map<String, Theatre> theatres;
@@ -49,7 +53,7 @@ public class DataManager {
 		return false;
 	}
 	
-	public boolean createShow(Show show, String theatreName) {
+	public boolean addShowToTheatre(Show show, String theatreName) {
 		if(theatres.containsKey(theatreName)) {
 			Theatre theatre = theatres.get(theatreName);
 			theatre.addShow(show);
@@ -59,7 +63,7 @@ public class DataManager {
 	}
 	
 	
-	public boolean saveBooking(Booking booking,Integer row, Integer col, Integer showId, String theatreName) {
+	public boolean saveBooking(Booking booking, Integer row, Integer col, Integer showId, String theatreName) {
 		if(theatres.containsKey(theatreName)) {
 			Theatre theatre = theatres.get(theatreName);
 			Show show = theatre.getShow(showId);

@@ -69,7 +69,7 @@ public class Program {
 		dataManager.addTheatre(new Theatre("Salong4"));
 
 		Show show = new Show(LocalDateTime.now(), LocalDateTime.now(), m1);
-		dataManager.createShow(show, "Salong1");
+		dataManager.addShowToTheatre(show, "Salong1");
 	}
 
 	public static void addMovie(DataManager dataManager) {
@@ -266,7 +266,7 @@ public class Program {
 
 		show.setStart(startTime);
 		show.setEnd(endTime);
-		dataManager.createShow(show, chosenTheatre);
+		dataManager.addShowToTheatre(show, chosenTheatre);
 	}
 
 	public static void viewAllShowInTheatre(DataManager dataManager) {
