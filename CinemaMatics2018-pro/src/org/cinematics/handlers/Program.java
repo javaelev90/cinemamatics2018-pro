@@ -210,6 +210,10 @@ public class Program {
 				break;
 			}
 		}
+		if(show.getMovie() == null) {
+			System.out.println("That movie id does not exist");
+			return;
+		}
 		System.out.println("Theatres: ");
 		
 		List<Theatre> theatres = dataManager.getTheatres();

@@ -31,8 +31,9 @@ public class UserInterface {
 			}
 			myInt = Integer.parseInt(input);
 		} catch (NumberFormatException | IOException e) {
-			System.out.println("Bad input");
-			myInt = inputInt();
+			System.out.println("Input is not a number");
+//			myInt = inputIntWithBreak();
+			return -1;
 		}
 		return myInt;
 	}
@@ -44,7 +45,7 @@ public class UserInterface {
 			String input = con.readLine();
 			myInt = Integer.parseInt(input);
 		} catch (NumberFormatException | IOException e) {
-			System.out.println("Bad input");
+			System.out.println("Input is not a number");
 			myInt = inputInt();
 		}
 		return myInt;
