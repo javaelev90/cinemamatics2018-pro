@@ -118,7 +118,7 @@ public class Program {
 				}
 			}
 			int showId = UserInterface.getShowId();
-			if(showId == -1) return;
+			if(showId == Integer.MIN_VALUE) return;
 			Theatre theatre = dataManager.getTheatreForShow(showId);
 			if(theatre == null) {
 				System.out.println("No such show id");
@@ -127,15 +127,25 @@ public class Program {
 			Show show = theatre.getShow(showId);
 
 			int numberOfSeats = UserInterface.chooseNumberOfSeats();
-			if(numberOfSeats == -1) return;
+			if(numberOfSeats == Integer.MIN_VALUE) return;
 			
 			//Booking seats together
-			if(UserInterface.seatsTogether()) {
+			String answer = UserInterface.checkIfSeatsShouldBeTogether();
+			boolean seatsTogether = false;
+			if(answer.equals("y")) {
+				seatsTogether = true;
+			} else if(answer.equals("n")) {
+				seatsTogether = false;
+			} else {
+				System.out.println("You have to input y or n!");
+				return;
+			}
+			if(seatsTogether) {
 				System.out.println("Choose starting seat:");
 				int startingRow = UserInterface.chooseSeatRow();
-				if(startingRow == -1) return;
+				if(startingRow == Integer.MIN_VALUE) return;
 				int startingCol = UserInterface.chooseSeatCol();
-				if(startingCol == -1) return;
+				if(startingCol == Integer.MIN_VALUE) return;
 				Seat[] seats = show.getSeats(startingRow, startingCol, numberOfSeats);
 				try {
 					if(show.areSeatsAvailable(seats)) {
@@ -160,9 +170,9 @@ public class Program {
 				List<Seat> seats = new ArrayList<Seat>();
 				while(!(seats.size() == numberOfSeats)) {
 					int startingRow = UserInterface.chooseSeatRow();
-					if(startingRow == -1) return;
+					if(startingRow == Integer.MIN_VALUE) return;
 					int startingCol = UserInterface.chooseSeatCol();
-					if(startingCol == -1) return;
+					if(startingCol == Integer.MIN_VALUE) return;
 					try {
 						Seat seat = new Seat(startingRow, startingCol);
 						if(seats.contains(seat)) {
@@ -202,7 +212,7 @@ public class Program {
 			System.out.println(movie.toString());
 		}
 		int movieId = UserInterface.enterMovieId();
-		if(movieId == -1) return;
+		if(movieId == Integer.MIN_VALUE) return;
 		for(Movie movie : movies) {
 			if(movie.getId() == movieId) {
 				Movie showMovie = movie;
@@ -235,6 +245,10 @@ public class Program {
 		}
 		LocalDateTime endTime = UserInterface.readDate(startTime);
 		if(endTime == null || endTime.equals(LocalDateTime.MIN)) {
+			return;
+		}
+		if(!startTime.isBefore(endTime)) {
+			System.out.println("Start time must be strictly before end time");
 			return;
 		}
 		List<Show> shows = theatre.getAllShows();

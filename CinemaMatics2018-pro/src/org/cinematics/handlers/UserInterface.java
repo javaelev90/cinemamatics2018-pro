@@ -27,13 +27,13 @@ public class UserInterface {
 		try {
 			String input = con.readLine();
 			if(input.equals("")) {
-				return -1;
+				return Integer.MIN_VALUE;
 			}
 			myInt = Integer.parseInt(input);
 		} catch (NumberFormatException | IOException e) {
 			System.out.println("Input is not a number");
 //			myInt = inputIntWithBreak();
-			return -1;
+			return Integer.MIN_VALUE;
 		}
 		return myInt;
 	}
@@ -155,18 +155,11 @@ public class UserInterface {
 		return inputIntWithBreak();
 	}
 
-	public static boolean seatsTogether() {
+	public static String checkIfSeatsShouldBeTogether() {
 		System.out.println("Seats together? (y/n)");
-		String answer = getUserInputString();
-		if(answer.equals("y")) {
-			return true;
-		} else if(answer.equals("n")) {
-			return false;
-		} else {
-			System.out.println("You have to choose y or n!");
-			return seatsTogether();
-		}
+		return getUserInputString();
 	}
+	
 
 	
 	
