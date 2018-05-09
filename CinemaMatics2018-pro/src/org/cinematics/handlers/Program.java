@@ -53,23 +53,23 @@ public class Program {
 	}
 	
 	public static void setup(DataManager dataManager) {
-		Movie m1 = new Movie();
-		m1.setName("Terminator");
-		m1.setDescription("I'll be back");
+//		Movie m1 = new Movie();
+//		m1.setName("Terminator");
+//		m1.setDescription("I'll be back");
+//		
+//		Movie m2 = new Movie();
+//		m2.setName("Scarface");
+//		m2.setDescription("Say hello to my....");
 		
-		Movie m2 = new Movie();
-		m2.setName("Scarface");
-		m2.setDescription("Say hello to my....");
-		
-		dataManager.addMovie(m1);
-		dataManager.addMovie(m2);
-		dataManager.addTheatre(new Theatre("Salong1"));
-		dataManager.addTheatre(new Theatre("Salong2"));
-		dataManager.addTheatre(new Theatre("Salong3"));
-		dataManager.addTheatre(new Theatre("Salong4"));
+//		dataManager.addMovie(m1);
+//		dataManager.addMovie(m2);
+//		dataManager.addTheatre(new Theatre("Salong1"));
+//		dataManager.addTheatre(new Theatre("Salong2"));
+//		dataManager.addTheatre(new Theatre("Salong3"));
+//		dataManager.addTheatre(new Theatre("Salong4"));
 
-		Show show = new Show(LocalDateTime.now(), LocalDateTime.now(), m1);
-		dataManager.addShowToTheatre(show, "Salong1");
+//		Show show = new Show(LocalDateTime.now(), LocalDateTime.now(), m1);
+//		dataManager.addShowToTheatre(show, "Salong1");
 	}
 
 	public static void addMovie(DataManager dataManager) {
@@ -86,7 +86,11 @@ public class Program {
 		}
 		movie.setDescription(description);
 		movie.setName(title);
-		dataManager.addMovie(movie);
+		if(dataManager.addMovie(movie)) {
+			System.out.println("Movie was added successfully!");
+		} else {
+			System.out.println("That movie title already exists");
+		}
 	}
 	
 	public static void addTheatre(DataManager dataManager) {

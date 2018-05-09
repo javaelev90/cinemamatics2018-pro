@@ -1,5 +1,7 @@
 package org.cinematics.handlers;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +10,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
+import org.cinematics.db.DbQueryHelper;
 import org.cinematics.model.Booking;
 import org.cinematics.model.Movie;
 import org.cinematics.model.Show;
@@ -34,23 +37,46 @@ public class DataManager {
 	}
 	
 	public Set<Movie> getAllMovies(){
+		String queryMovies = "SELECT * FROM cinema.movies;";
+		ResultSet result = DbQueryHelper.executePreparedStatementQuery(queryMovies).get();
+		try {
+			while(result.next()) {
+				Movie movie = new Movie();
+				movie.setId(result.getInt("id"));
+				movie.setName(result.getString("name"));
+				movie.setDescription(result.getString("description"));
+				movies.add(movie);
+			}
+		} catch (SQLException e) {
+			System.err.println(e);
+		}
+		
 		return movies;
 	}
 	
 	public boolean addMovie(Movie movie) {
-		return movies.add(movie);
+		String queryMovies = "SELECT * FROM cinema.movies WHERE name = ?;";
+		if(doesEntryExist(queryMovies, movie.getName())) {
+			return false;
+		}
+		String insertMovieString = "INSERT INTO cinema.movies (name, description) VALUES (?,?);";
+		long result = DbQueryHelper.executePreparedStatementUpdate(insertMovieString, movie.getName(), movie.getDescription());
+		return result > 0;
 	}
+	
 	
 	public List<Theatre> getTheatres(){
 		return theatres.values().stream().collect(Collectors.toList());
 	}
 	
 	public boolean addTheatre(Theatre theatre) {
-		if(!theatres.containsKey(theatre.getName())) {
-			theatres.put(theatre.getName(), theatre);
-			return true;
+		String queryTheatres = "SELECT * FROM cinema.theatres WHERE name = ?;";
+		if(doesEntryExist(queryTheatres, theatre.getName())) {
+			return false;
 		}
-		return false;
+		String insertTheatreString = "INSERT INTO cinema.theatres (name, seat_rows, seat_cols) VALUES (?,?,?);";
+		long result = DbQueryHelper.executePreparedStatementUpdate(insertTheatreString, theatre.getName(), theatre.SEAT_ROWS, theatre.SEAT_COLS);
+		return result > 0;
 	}
 	
 	public boolean addShowToTheatre(Show show, String theatreName) {
@@ -90,4 +116,16 @@ public class DataManager {
 		return bookings.get(bookingId);
 	}
 	
+	private boolean doesEntryExist(String query, Object... values) {
+		ResultSet resultSet = DbQueryHelper.executePreparedStatementQuery(query, values).get();
+		try {
+			if(resultSet.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			System.err.println(e);
+			return false;
+		}
+		return false;
+	}
 }
